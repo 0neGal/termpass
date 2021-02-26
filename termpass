@@ -1,0 +1,15 @@
+#!/bin/sh
+
+check() {
+	sudo ispass "$USER" "$(cat ~/.cache/pass)" && {
+		exit 0
+	} || {
+		exit 1
+	}
+
+	rm ~/.cache/pass
+}
+
+init() {
+	dialog --clear --insecure --passwordbox "Password for $USER" 0 0 2> ~/.cache/pass && check "$USER"
+}; init
