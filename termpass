@@ -11,5 +11,10 @@ check() {
 }
 
 init() {
-	dialog --clear --insecure --passwordbox "Password for $USER" 0 0 2> ~/.cache/pass && check "$USER"
-}; init
+	[ "$1" = "--ascii" ] && OTHER="$OTHER --ascii-lines"
+	dialog \
+		$OTHER \
+		--clear \
+		--insecure \
+		--passwordbox "Password for $USER" 0 0 2> ~/.cache/pass && check "$USER"
+}; init $@
